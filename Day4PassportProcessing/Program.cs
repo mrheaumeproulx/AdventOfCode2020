@@ -13,7 +13,9 @@ namespace Day4PassportProcessing
             Console.WriteLine("Day 4 Passport Processing");
             Console.WriteLine("Gathering passports");
             var passports = await GetPassorts();
+            Console.WriteLine($"Number of passports: {passports.Count()}");
             Console.WriteLine($"Number of valid passports: {passports.Count(p => p.IsValid())}");
+            Console.WriteLine($"Number of invalid passports: {passports.Count(p => !p.IsValid())}");
             Console.WriteLine($"Passport : \tbyr \tiyr \teyr \thgt \thcl \tecl \tpid");
             foreach (var passport in passports.Where(p => !p.IsValid()))
             {
@@ -32,7 +34,10 @@ namespace Day4PassportProcessing
             {
                 var line = await reader.ReadLineAsync();
                 if (line == null)
+                {
+                    passports.Add(passport);
                     break;
+                }
 
                 if (String.IsNullOrWhiteSpace(line))
                 {
